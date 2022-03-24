@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom"
+import { TrashIcon, PencilIcon } from "@heroicons/react/outline"
+import { generatePath } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 const car = [
   {id: 1, month: '2016-01', make: 'ALPINA', fuel_type: 'Petrol', vehicle_type: 'Hatchback', number: 0 },
 ]
@@ -7,6 +11,9 @@ function classNames(...classes) {
 }
 
 export default function DataTable() {
+
+  const navigate = useNavigate();
+  
   return (
     <div >
       <div className="sm:flex sm:items-center">
@@ -17,12 +24,14 @@ export default function DataTable() {
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <Link to="/create">
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
           >
             Add Car
-          </button>
+            </button>
+            </Link>
         </div>
       </div>
       <div className="mt-8 flex flex-col">
@@ -66,7 +75,13 @@ export default function DataTable() {
                       scope="col"
                       className="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8"
                     >
-                      <span className="sr-only">Edit</span>
+                      <span>Edit</span>
+                    </th>
+                    <th
+                      scope="col"
+                      className="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8"
+                    >
+                      <span>Delete</span>
                     </th>
                   </tr>
                 </thead>
@@ -116,12 +131,23 @@ export default function DataTable() {
                       <td
                         className={classNames(
                           carIdx !== car.length - 1 ? 'border-b border-gray-200' : '',
-                          'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8'
+                          'relative whitespace-nowrap py-4 pr-4 pl-3 text-center text-sm font-medium sm:pr-6 lg:pr-8'
                         )}
                       >
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                          Edit<span className="sr-only">, {car.id}</span>
-                        </a>
+                        <button onClick={() => navigate(`/car/${car.id}`)} type="button" className="rounded-full  items-center text-center bg-gray-300 text-indigo-500 h-8 w-8 ">
+
+                            <PencilIcon className="inline-block h-5 w-5 " />
+                          </button>
+                      </td>
+                       <td
+                        className={classNames(
+                          carIdx !== car.length - 1 ? 'border-b border-gray-200' : '',
+                          'relative whitespace-nowrap py-4 pr-4 pl-3 text-center text-sm font-medium sm:pr-6 lg:pr-8'
+                        )}
+                      >
+                        <button className="text-indigo-600 rounded-full bg-gray-300 h-8 w-8 hover:text-indigo-900">
+                          <TrashIcon className="inline-block h-5 w-5 text-red-500" />
+                        </button>
                       </td>
                     </tr>
                   ))}

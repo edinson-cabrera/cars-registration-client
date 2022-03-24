@@ -1,7 +1,7 @@
     /* This example requires Tailwind CSS v2.0+ */
 const navigation = [
-  { name: 'Home', href: '#' },
-  { name: 'Admin', href: '#' },
+  { name: 'Home', href: '/' },
+  { name: 'Admin', href: '/admin' },
 ]
 
 export default function Header({ children }) {
@@ -44,7 +44,7 @@ export default function Header({ children }) {
         </div>
       </nav>
       </header>
-      <main>
+      <main className="">
                 {children}
       </main>
       </>
