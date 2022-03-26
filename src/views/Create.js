@@ -1,6 +1,32 @@
 import Header from "../components/Headers/Header";
 import { ArrowCircleRightIcon } from "@heroicons/react/outline";
+import carService from "../services/car.service";
+import { useRef } from "react";
+import { useNavigate } from "react-router";
 function Create() {
+  const navigate = useNavigate();
+
+  const month = useRef(null);
+  const vehicleMake = useRef(null);
+  const fuelType = useRef(null);
+  const vehicleType = useRef(null);
+  const numberOfVehicles = useRef(null);
+
+  async function createCar() {
+    const carData = {
+      month: month.current.value,
+      make: vehicleMake.current.value,
+      fuel_type: fuelType.current.value,
+      vehicle_Type: vehicleType.current.value,
+      number: numberOfVehicles.current.value,
+    };
+    carService.createCar(carData).then((res) => {
+      console.log(res);
+      console.log(carData);
+    });
+    navigate("/");
+  }
+
   return (
     <div className="h-screen bg-gray-100">
       <Header>
@@ -24,6 +50,7 @@ function Create() {
                           type="text"
                           name="month"
                           id="month"
+                          ref={month}
                           className="shadow-sm rounded-md py-1.5 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 w-full"
                           placeholder="10/20"
                         />
@@ -35,6 +62,7 @@ function Create() {
                           type="text"
                           name="make"
                           id="make"
+                          ref={vehicleMake}
                           className="shadow-sm rounded-md py-1.5 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 w-full"
                           placeholder="ALPINA"
                         />
@@ -48,6 +76,7 @@ function Create() {
                           type="text"
                           name="fuelType"
                           id="fuelType"
+                          ref={fuelType}
                           className="shadow-sm rounded-md py-1.5 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 w-full"
                           placeholder="Petrol"
                         />
@@ -61,6 +90,7 @@ function Create() {
                           type="text"
                           name="vehicleType"
                           id="vehicleType"
+                          ref={vehicleType}
                           className="shadow-sm rounded-md py-1.5 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 w-full"
                           placeholder="Hatchback"
                         />
@@ -72,6 +102,7 @@ function Create() {
                           type="text"
                           name="number"
                           id="number"
+                          ref={numberOfVehicles}
                           className="shadow-sm rounded-md py-1.5 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 w-full"
                           placeholder="0"
                         />
@@ -81,7 +112,9 @@ function Create() {
                       <button
                         type="submit"
                         className="bg-indigo-500 text-white rounded-md px-4 py-2 mt-5"
-                        onClick={() => {}}
+                        onClick={() => {
+                          createCar();
+                        }}
                       >
                         <div className="flex items-center">
                           <ArrowCircleRightIcon className="h-5 w-5 mr-2" />

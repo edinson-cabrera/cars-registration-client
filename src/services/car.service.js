@@ -13,6 +13,9 @@ class CarService {
   deleteCar(id) {
     return http.delete(`/cars/${id}`);
   }
+  getCarById(id) {
+    return http.get(`/cars/${id}`);
+  }
 }
 
 export default new CarService();
