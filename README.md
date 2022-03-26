@@ -1,3 +1,3 @@
 # Car Registration App
 
-This project is deployed in Vercel. This is the URL [Web Page](https://transcendent-ganache-d34b66.netlify.app).
+This project was deployed in Netlify. This is the URL [Web Page](https://symphonious-froyo-8742d3.netlify.app).
