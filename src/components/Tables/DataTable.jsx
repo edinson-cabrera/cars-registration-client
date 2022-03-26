@@ -1,23 +1,24 @@
 import { Link } from "react-router-dom";
 import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import carService from "../../services/car.service";
+import { useNavigate } from "react-router-dom";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DataTable() {
+export default function DataTable({ cars }) {
   const navigate = useNavigate();
-  const [cars, setCars] = useState([]);
 
-  const fetchData = () => {
-    carService.getAllCars().then((response) => setCars(response.data));
-  };
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  async function deleteCar(id) {
+    carService.deleteCar(id).then(() => {
+      carService.getAllCars(id);
+    });
+    refreshPage();
+  }
 
   return (
     <div>
@@ -115,7 +116,7 @@ export default function DataTable() {
                           "whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell"
                         )}
                       >
-                        {car.vehicleMake}
+                        {car.make}
                       </td>
                       <td
                         className={classNames(
@@ -125,7 +126,7 @@ export default function DataTable() {
                           "whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell"
                         )}
                       >
-                        {car.fuelType}
+                        {car.fuel_type}
                       </td>
                       <td
                         className={classNames(
@@ -135,7 +136,7 @@ export default function DataTable() {
                           "whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                         )}
                       >
-                        {car.vehicleType}
+                        {car.vehicle_type}
                       </td>
                       <td
                         className={classNames(
@@ -145,7 +146,7 @@ export default function DataTable() {
                           "whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                         )}
                       >
-                        {car.numberOfVehicles}
+                        {car.number}
                       </td>
                       <td
                         className={classNames(
@@ -171,7 +172,10 @@ export default function DataTable() {
                           "relative whitespace-nowrap py-4 pr-4 pl-3 text-center text-sm font-medium sm:pr-6 lg:pr-8"
                         )}
                       >
-                        <button className="text-indigo-600 rounded-full bg-gray-300 h-8 w-8 hover:text-indigo-900">
+                        <button
+                          onClick={() => deleteCar(car.id)}
+                          className="text-indigo-600 rounded-full bg-gray-300 h-8 w-8 hover:text-indigo-900"
+                        >
                           <TrashIcon className="inline-block h-5 w-5 text-red-500" />
                         </button>
                       </td>
