@@ -3,6 +3,7 @@ import { ArrowCircleRightIcon } from "@heroicons/react/outline";
 import carService from "../services/car.service";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
+import CSVCard from "../components/Cards/CsvCard";
 function Create() {
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ function Create() {
   }
 
   return (
-    <div className="h-screen bg-gray-100">
+    <div className="h-full bg-gray-100">
       <Header>
         <div className="">
           <div className="py-10">
@@ -124,7 +125,9 @@ function Create() {
                     </div>
                   </form>
                 </div>
-
+                <div className="">
+                  <CSVCard />
+                </div>
                 {/* /End replace */}
               </div>
             </div>

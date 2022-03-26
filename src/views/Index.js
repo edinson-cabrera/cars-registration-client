@@ -1,11 +1,9 @@
 import Header from "../components/Headers/Header";
 import DataTable from "../components/Tables/DataTable";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import carService from "../services/car.service";
 import Pagination from "../components/Tables/Pagination";
 function Index() {
-  const navigate = useNavigate();
   const [cars, setCars] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [carsPerPage] = useState(10);
@@ -25,7 +23,7 @@ function Index() {
   }, []);
 
   return (
-    <div className="w-screen bg-gray-100 ">
+    <div className=" h-full bg-gray-100 ">
       <Header>
         <div className="py-10">
           <div>
