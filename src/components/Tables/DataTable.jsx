@@ -1,28 +1,24 @@
 import { Link } from "react-router-dom";
 import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import carService from "../../services/car.service";
+import { useNavigate } from "react-router-dom";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DataTable() {
+export default function DataTable({ cars }) {
   const navigate = useNavigate();
-  const [cars, setCars] = useState([]);
-  const fetchData = () => {
-    carService.getAllCars().then((response) => setCars(response.data));
-  };
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   async function deleteCar(id) {
     carService.deleteCar(id).then(() => {
-      carService.getAllCars(id).then((response) => setCars(response.data));
+      carService.getAllCars(id);
     });
+    refreshPage();
   }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div>
