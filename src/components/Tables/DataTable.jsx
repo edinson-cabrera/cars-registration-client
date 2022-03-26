@@ -21,7 +21,7 @@ export default function DataTable({ cars }) {
   }
 
   return (
-    <div>
+    <div className="">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Cars</h1>
